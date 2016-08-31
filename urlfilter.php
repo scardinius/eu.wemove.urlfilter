@@ -124,33 +124,17 @@ function urlfilter_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 
 function urlfilter_civicrm_urlFilter($url, $mailing_id, $queue_id, &$filter) {
-  CRM_Core_Error::debug_var('str pos', strpos($url, 'wemove.eu'), false, true);
-
   /* exclude all non wemove.eu urls */
   if (strpos($url, 'wemove.eu') !== FALSE) {
-    CRM_Core_Error::debug_var('"WLAAZLLL"', "WLAAZLLL");
     $filter = true;
   }
 }
 
 
 function urlfilter_civicrm_pre($op, $objectName, $id, &$params) {
-  if ($objectName == 'TrackableURL') {
+  if ($objectName == 'TrackableURL' and $op == 'create') {
     // todo alter url if it doesn't have utm_params
-//    CRM_Core_Error::debug_var('"url filter PRE"', "url filter PRE");
-//    CRM_Core_Error::debug_var('$op', $op);
-//    CRM_Core_Error::debug_var('$objectName', $objectName);
-//    CRM_Core_Error::debug_var('$id', $id);
-//    CRM_Core_Error::debug_var('$params', $params);
-  }
-}
-
-function urlfilter_civicrm_post($op, $objectName, $objectId, &$objectRef) {
-  if ($objectName == 'TrackableURL') {
-//    CRM_Core_Error::debug_var('"url filter POST"', "url filter POST");
-//    CRM_Core_Error::debug_var('$op', $op);
-//    CRM_Core_Error::debug_var('$objectName', $objectName);
-//    CRM_Core_Error::debug_var('$objectId', $objectId);
-//    CRM_Core_Error::debug_var('$objectRef', $objectRef);
+    // todo $params['url'] and $params['mailing_id']
+    // todo where are utm params stored? Mailing entity doesn't have allowed to using custom fields
   }
 }
